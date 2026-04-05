@@ -23,10 +23,11 @@ const PostAd: React.FC = () => {
   const [images, setImages] = useState<string[]>([]);
   const [errors, setErrors] = useState<Record<string, string>>({});
 
-  if (!user) {
-    navigate('/login');
-    return null;
-  }
+  useEffect(() => {
+    if (!user) navigate('/login');
+  }, [user]);
+
+  if (!user) return null;
 
   const selectedCategory = categories.find(c => c.id === categoryId);
 
