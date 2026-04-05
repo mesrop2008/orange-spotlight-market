@@ -14,13 +14,15 @@ const ChatPage: React.FC = () => {
   const [text, setText] = useState('');
   const bottomRef = useRef<HTMLDivElement>(null);
 
-  if (!user) { navigate('/login'); return null; }
-
-  const userConversations = conversations.filter(c => c.participants.includes(user.id));
+  const userConversations = user ? conversations.filter(c => c.participants.includes(user.id)) : [];
   const activeConv = convId ? conversations.find(c => c.id === convId) : userConversations[0];
 
   useEffect(() => {
-    if (activeConv) {
+    if (!user) navigate('/login');
+  }, [user]);
+
+  useEffect(() => {
+    if (activeConv && user) {
       markConversationRead(activeConv.id, user.id);
     }
   }, [activeConv?.id, activeConv?.messages.length]);
@@ -28,6 +30,8 @@ const ChatPage: React.FC = () => {
   useEffect(() => {
     bottomRef.current?.scrollIntoView({ behavior: 'smooth' });
   }, [activeConv?.messages.length]);
+
+  if (!user) return null;
 
   const handleSend = () => {
     if (!text.trim() || !activeConv) return;
@@ -42,7 +46,6 @@ const ChatPage: React.FC = () => {
       <div className="container mx-auto py-6">
         <h1 className="text-2xl font-bold mb-4">Messages</h1>
         <div className="grid grid-cols-1 md:grid-cols-3 gap-4 h-[calc(100vh-12rem)]">
-          {/* Conversation list */}
           <div className="rounded-xl border bg-card overflow-y-auto">
             {userConversations.length === 0 ? (
               <div className="p-8 text-center text-muted-foreground text-sm">No conversations yet</div>
@@ -76,7 +79,6 @@ const ChatPage: React.FC = () => {
             )}
           </div>
 
-          {/* Messages */}
           <div className="md:col-span-2 rounded-xl border bg-card flex flex-col">
             {activeConv ? (
               <>
