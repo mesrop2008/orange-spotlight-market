@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Star, Trash2, CheckCircle, Camera } from 'lucide-react';
 import Navbar from '@/components/Navbar';
@@ -6,16 +6,19 @@ import { useAuth } from '@/contexts/AuthContext';
 import { useApp } from '@/contexts/AppContext';
 import { reviews } from '@/data/users';
 import { users } from '@/data/users';
-import { Button } from '@/components/ui/button';
 import { toast } from 'sonner';
 
 const ProfilePage: React.FC = () => {
-  const { user, updateAvatar, logout } = useAuth();
+  const { user, updateAvatar } = useAuth();
   const { listings, updateListing, deleteListing } = useApp();
   const navigate = useNavigate();
   const [tab, setTab] = useState<'listings' | 'reviews'>('listings');
 
-  if (!user) { navigate('/login'); return null; }
+  useEffect(() => {
+    if (!user) navigate('/login');
+  }, [user]);
+
+  if (!user) return null;
 
   const myListings = listings.filter(l => l.sellerId === user.id);
   const myReviews = reviews.filter(r => r.toUserId === user.id);
@@ -36,7 +39,6 @@ const ProfilePage: React.FC = () => {
     <div className="min-h-screen bg-background">
       <Navbar />
       <div className="container mx-auto py-8 max-w-3xl">
-        {/* Profile header */}
         <div className="rounded-xl border bg-card p-6 mb-6">
           <div className="flex items-center gap-5">
             <div className="relative group">
@@ -60,7 +62,6 @@ const ProfilePage: React.FC = () => {
           </div>
         </div>
 
-        {/* Tabs */}
         <div className="flex gap-1 mb-4 border-b">
           <button onClick={() => setTab('listings')}
             className={`px-4 py-2 text-sm font-medium border-b-2 transition-colors ${tab === 'listings' ? 'border-primary text-primary' : 'border-transparent text-muted-foreground hover:text-foreground'}`}>

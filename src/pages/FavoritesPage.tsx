@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { Heart } from 'lucide-react';
 import Navbar from '@/components/Navbar';
 import ListingCard from '@/components/ListingCard';
@@ -11,7 +11,11 @@ const FavoritesPage: React.FC = () => {
   const { favorites, listings } = useApp();
   const navigate = useNavigate();
 
-  if (!user) { navigate('/login'); return null; }
+  useEffect(() => {
+    if (!user) navigate('/login');
+  }, [user]);
+
+  if (!user) return null;
 
   const favListings = listings.filter(l => favorites.includes(l.id));
 
