@@ -106,26 +106,4 @@ src/
 `Message`, `Conversation`, `Review`, `Category`. When a real API arrives, those interfaces are what
 the responses have to satisfy, and the two contexts are the only places that would need to change.
 
-## Known limits
 
-These are deliberate for a frontend build, and are the first things to fix if it goes further.
-
-- **No persistence.** State is `useState` in two providers. Refresh and you are back to the seed
-  data. localStorage would be a stopgap; an API is the real answer.
-- **Auth is not auth.** Passwords sit in plain text in `src/data/users.ts` and `login` is an array
-  lookup. It exists so the UI has a current user, nothing more.
-- **Routes are not guarded.** `/post`, `/chat` and `/profile` render regardless of sign-in state.
-- **No image upload.** Listing images are Unsplash URLs in the seed data.
-- **Search is a substring match** over title and description, computed client-side over every
-  listing.
-- **The unit suite is a placeholder.** Vitest, Testing Library and jsdom are configured and one
-  trivial test proves the setup runs. The filter logic, the conversation lookup and the favourites
-  toggle are the parts worth covering first.
-- **Playwright is scaffolding.** `playwright.config.ts` pulls its config from a package that is not
-  in `devDependencies`, so the e2e setup needs wiring before it runs.
-
-## Where it would go next
-
-A REST or GraphQL backend behind the `src/data` types, real authentication with protected routes,
-image upload, server-side search and pagination, and WebSocket messaging in place of the in-memory
-conversation store.
