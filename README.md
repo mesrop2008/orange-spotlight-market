@@ -70,22 +70,7 @@ Registering creates a user and signs you in, but the account only exists until r
 | `/profile` | Profile, own listings, avatar |
 | `/login`, `/register` | Auth |
 
-## Features
 
-**Browsing.** Eight categories — electronics, cars, real estate, clothing, furniture, jobs,
-services and animals — each with subcategories. 24 seeded listings. Skeleton cards cover the
-simulated load delay on first paint.
-
-**Filtering.** Price range, condition (new / used), city, and sorting by newest, price ascending,
-price descending, or view count. Filters are shared between the search and category pages.
-
-**Favourites.** Toggle from a listing card or its detail page; `/favorites` lists them.
-
-**Messaging.** Contacting a seller opens or reuses a conversation tied to that listing, so a thread
-always has an item attached to it. Unread counts are tracked per user.
-
-**Posting.** The post-ad form prepends to the listing collection, so a new ad shows up on the home
-page and in its category immediately.
 
 ## Layout
 
