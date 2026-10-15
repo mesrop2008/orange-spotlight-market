@@ -1,4 +1,4 @@
-# Orange Spotlight Market
+⁹# Orange Spotlight Market
 
 A classifieds marketplace frontend in the style of OLX or Avito. Browse listings across eight
 categories, filter and sort them, save favourites, message a seller about an item, and post an ad
@@ -69,26 +69,4 @@ Registering creates a user and signs you in, but the account only exists until r
 | `/chat`, `/chat/:convId` | Conversation list and thread |
 | `/profile` | Profile, own listings, avatar |
 | `/login`, `/register` | Auth |
-
-
-
-## Layout
-
-```
-src/
-  components/       CategoryBar, FiltersSidebar, ListingCard, Navbar
-    ui/             shadcn/ui primitives
-  contexts/
-    AppContext      listings, favourites, conversations
-    AuthContext     current user, login, register
-  data/             seed data and the shared types
-  hooks/
-  pages/            one component per route
-  lib/
-```
-
-`src/data/types.ts` is the contract the rest of the app is written against — `Listing`, `User`,
-`Message`, `Conversation`, `Review`, `Category`. When a real API arrives, those interfaces are what
-the responses have to satisfy, and the two contexts are the only places that would need to change.
-
 
